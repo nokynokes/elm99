@@ -83,3 +83,16 @@ pack list =
         subList = List.foldl (\elem acc -> if elem == x then x :: acc else acc) [] xs
         filteredList = List.filter (\elem -> elem /= x) xs
       in [x :: subList] ++ pack filteredList
+
+runLengthEncode : List a -> List (a, Int)
+runLengthEncode list =
+  case list of
+    [] -> []
+    [x] -> [(x, 1)]
+    x :: xs -> case runLengthEncode xs of
+      [] -> []
+      (xp, count) :: xsp ->
+        if xp == x then
+          (xp, count + 1) :: xsp
+        else
+          (x, 1) :: (xp, count) :: xsp
