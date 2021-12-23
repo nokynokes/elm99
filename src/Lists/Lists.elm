@@ -1,8 +1,8 @@
-module List1 exposing (..)
+module Lists exposing (..)
 import List
 import Maybe
 
-lastElement: List a -> Maybe a
+lastElement : List a -> Maybe a
 lastElement list =
   case list of
     [h] -> Just h
@@ -16,7 +16,7 @@ penultimate list =
     x::xs::[] -> Just x
     _::xs -> penultimate xs
 
-nth: Int -> List a -> Maybe a
+nth : Int -> List a -> Maybe a
 nth index list =
   let
     rec l acc =
@@ -26,10 +26,10 @@ nth index list =
   in
     rec list 0
 
-myLength: List a -> Int
+myLength : List a -> Int
 myLength = List.foldl (\_ acc -> acc + 1) 0
 
-myReverse: List a -> List a
+myReverse : List a -> List a
 myReverse = List.foldl (::) []
 
 isPalindrome : List a -> Bool
