@@ -3,6 +3,7 @@ module ListTests exposing (..)
 import Expect exposing (..)
 import Fuzz exposing (Fuzzer, int, list, string)
 import Test exposing (..)
+import List
 import Lists
 import Maybe
 
@@ -37,7 +38,7 @@ listSuite =
                   _ -> Expect.fail "should be Just 4"
         ]
     , describe "nth"
-        [ fuzz int "empty list should always return nothing" <|
+        [ fuzz int "empty lists should always return nothing" <|
             \fuzzInt ->
               case Lists.nth fuzzInt [] of
                 Nothing -> Expect.pass
@@ -48,5 +49,14 @@ listSuite =
                 case Lists.nth 6 list of
                   Just 7 -> Expect.pass
                   _ -> Expect.fail "should be Just 7"
+        ]
+    , describe "myLength"
+        [ fuzz (list int) "should return correct list length" <|
+            \fuzzList ->
+              let
+                myLength = List.length fuzzList
+                myLength2 = Lists.myLength fuzzList
+              in
+                Expect.equal myLength myLength2
         ]
     ]
